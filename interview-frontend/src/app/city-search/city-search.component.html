@@ -1,0 +1,13 @@
+<div class="container">
+    <h1>Type to search! 😉</h1>
+    <form (submit)="searchCities()">
+        <input type="text" placeholder="Enter a city" />
+        <button type="submit">Go</button>
+    </form>
+    <ul *ngIf="searchResults.length > 0">
+        <li *ngFor="let city of searchResults">
+            {{ city.name }} - Count: {{ city.count }}
+        </li>
+    </ul>
+    <p *ngIf="searchResults.length === 0 && searchQuery">Try again!</p>
+</div>
