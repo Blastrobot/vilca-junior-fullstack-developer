@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-
-interface City {
-  uuid: string | number;
-  name: string;
-  count: number;
-}
+import { CitySearchService } from '../city-search.service';
+import { City } from "../city.interface";
 
 @Component({
   selector: 'app-city-search',
@@ -15,10 +10,10 @@ interface City {
 
 export class CitySearchComponent implements OnInit {
   searchQuery: string = "";
-  cities: City[] = [];
+  citiesResults: City[] = [];
   currentPage: number = 1;
 
-  constructor(private http: HttpClient) {}
+  constructor(private citySearchService: CitySearchService) {}
 
   ngOnInit(): void {
 
@@ -27,5 +22,28 @@ export class CitySearchComponent implements OnInit {
   searchCities(): void {
     this.currentPage = 1;
     this.fetchCities();
+  }
+
+  loadMore(): void {
+    this.currentPage++;
+    this.fetchCities();
+  }
+
+  private fetchCities(): void {
+    this.citySearchService.searchCities(this.searchQuery, this.currentPage)
+      .subscribe({
+        next: (data) => {
+          if (this.currentPage === 1) {
+            this.citiesResults = data;
+          } else {
+            this.citiesResults = [...this.citiesResults, ...data];
+          }
+        },
+        error: (error) => {
+          console.error("Error fetching cities:", error);
+        },
+        complete: () => console.info("complete")
+      }
+      )
   }
 }

@@ -4,10 +4,10 @@
         <input type="text" placeholder="Enter a city" />
         <button type="submit">Go</button>
     </form>
-    <ul *ngIf="searchResults.length > 0">
-        <li *ngFor="let city of searchResults">
-            {{ city.name }} - Count: {{ city.count }}
+    <ul *ngIf="citiesResults.length > 0">
+        <li *ngFor="let city of citiesResults">
+            {{ city.cityName }} - Count: {{ city.count }}
         </li>
     </ul>
-    <p *ngIf="searchResults.length === 0 && searchQuery">Try again!</p>
+    <p *ngIf="citiesResults.length === 0 && searchQuery">Try again!</p>
 </div>
