@@ -1,7 +1,7 @@
 <div class="container">
     <h1>Type to search! 😉</h1>
-    <form (submit)="searchCities()">
-        <input type="text" placeholder="Enter a city" />
+    <form (submit)="searchCities($event)">
+        <input type="text" placeholder="Enter a city" [(ngModel)]="searchQuery" name="searchQuery"/>
         <button type="submit">Go</button>
     </form>
     <ul *ngIf="citiesResults.length > 0">

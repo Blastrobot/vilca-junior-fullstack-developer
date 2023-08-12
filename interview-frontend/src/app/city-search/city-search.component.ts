@@ -19,7 +19,8 @@ export class CitySearchComponent implements OnInit {
 
   }
 
-  searchCities(): void {
+  searchCities(event: Event): void {
+    event.preventDefault();
     this.currentPage = 1;
     this.fetchCities();
   }
