@@ -10,4 +10,5 @@
         </li>
     </ul>
     <p *ngIf="citiesResults.length === 0 && searchQuery">Try again!</p>
+    <button *ngIf="citiesResults.length > 0 && citiesResults.length % 5 === 0" (click)="loadMore()">Load More</button>
 </div>

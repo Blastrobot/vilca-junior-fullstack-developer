@@ -12,7 +12,8 @@ export class CitySearchService {
   constructor(private http: HttpClient) { }
 
   searchCities(searchQuery: string, page: number = 1): Observable<City[]> {
-    const endpoint = `${this.url}?search=${searchQuery}&page${page}`;
+    const endpoint = `${this.url}?search=${searchQuery}&page=${page}`;
+    console.log("Requesting API:", endpoint);
     return this.http.get<City[]>(endpoint);
   }
 }

@@ -18,8 +18,8 @@ export class CitySearchController{
         const endIndex = startIndex + perPage;
     
         const filteredCities = citiesData.filter(city => city.cityName.toLowerCase().includes(searchQuery.toLowerCase()));
+        console.log("Filtered Cities:", filteredCities);
         const paginatedCities = filteredCities.slice(startIndex, endIndex);
-    
         console.log("The fetch is working!", paginatedCities);
         return paginatedCities;
     }

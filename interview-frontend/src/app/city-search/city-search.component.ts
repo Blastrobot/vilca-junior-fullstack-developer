@@ -16,7 +16,7 @@ export class CitySearchComponent implements OnInit {
   constructor(private citySearchService: CitySearchService) {}
 
   ngOnInit(): void {
-
+    this.fetchCities();
   }
 
   searchCities(event: Event): void {
@@ -43,7 +43,7 @@ export class CitySearchComponent implements OnInit {
         error: (error) => {
           console.error("Error fetching cities:", error);
         },
-        complete: () => console.info("complete")
+        complete: () => console.info("City properly fetched!")
       }
       )
   }
