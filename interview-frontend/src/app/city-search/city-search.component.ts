@@ -16,35 +16,38 @@ export class CitySearchComponent implements OnInit {
   constructor(private citySearchService: CitySearchService) {}
 
   ngOnInit(): void {
-    this.fetchCities();
+    this.fetchCities([this.searchQuery]);
   }
 
   searchCities(event: Event): void {
     event.preventDefault();
     this.currentPage = 1;
-    this.fetchCities();
+    // const cityNames = this.searchQuery.split(",").map(city => city.trim());
+    this.fetchCities([this.searchQuery]);
   }
 
   loadMore(): void {
     this.currentPage++;
-    this.fetchCities();
+    this.fetchCities([this.searchQuery]);
   }
 
-  private fetchCities(): void {
-    this.citySearchService.searchCities(this.searchQuery, this.currentPage)
-      .subscribe({
-        next: (data) => {
-          if (this.currentPage === 1) {
-            this.citiesResults = data;
-          } else {
-            this.citiesResults = [...this.citiesResults, ...data];
-          }
-        },
-        error: (error) => {
-          console.error("Error fetching cities:", error);
-        },
-        complete: () => console.info("City properly fetched!")
-      }
-      )
-  }
+  private fetchCities(cityNames: string[]): void {
+    for (const cityName of cityNames) {
+      this.citySearchService.searchCities(cityName, this.currentPage)
+        .subscribe({
+          next: (data) => {
+            if (this.currentPage === 1) {
+              this.citiesResults = data;
+            } else {
+              this.citiesResults = [...this.citiesResults, ...data];
+            }
+          },
+          error: (error) => {
+            console.error("Error fetching cities:", error);
+          },
+          complete: () => console.info("City properly fetched!")
+        }
+        )
+    }
+    }
 }
